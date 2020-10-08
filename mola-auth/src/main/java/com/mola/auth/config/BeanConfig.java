@@ -35,8 +35,8 @@ import java.util.Properties;
 @EnableOpenApi
 @Import({DruidDsAutoConfig.class,
         DsProviderConfig.class,
-        RedisConfig.class
-//        ,MolaWebMvcConfigurer.class
+        RedisConfig.class,
+        MolaWebMvcConfigurer.class
 })
 public class BeanConfig {
     private final Environment environment;

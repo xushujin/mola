@@ -23,7 +23,7 @@ import java.util.HashMap;
  */
 @Slf4j
 @RestController
-@MolaResponseBody
+//@MolaResponseBody
 @RequestMapping("demo")
 public class DemoController {
 

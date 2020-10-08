@@ -26,17 +26,14 @@ public class MolaResponseBodyAdvice implements ResponseBodyAdvice<Object> {
 
     @Override
     public boolean supports(MethodParameter methodParameter, Class<? extends HttpMessageConverter<?>> aClass) {
-        return AnnotatedElementUtils.hasAnnotation(methodParameter.getContainingClass(), ANNOTATION_TYPE) || methodParameter.hasMethodAnnotation(ANNOTATION_TYPE);
+//        return AnnotatedElementUtils.hasAnnotation(methodParameter.getContainingClass(), ANNOTATION_TYPE) || methodParameter.hasMethodAnnotation(ANNOTATION_TYPE);
+        return true;
     }
 
     @SneakyThrows
     @Override
     public Object beforeBodyWrite(Object object, MethodParameter methodParameter, MediaType mediaType, Class<? extends HttpMessageConverter<?>> aClass, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
         serverHttpResponse.setStatusCode(httpStatus(serverHttpRequest.getMethod()));
-        if (object instanceof String) {
-            ObjectMapper om = new ObjectMapper();
-            return om.writeValueAsString(SuccessVo.builder().data(object).build());
-        }
         return SuccessVo.builder().data(object).build();
     }
 
