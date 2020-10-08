@@ -37,4 +37,9 @@
 6.  Gitee 封面人物是一档用来展示 Gitee 会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
 
 #### 备注
+--spring.profiles.active=dev
 mvn clean package install deploy -DskipTests
+
+http://127.0.0.1:8100/swagger-ui/index.html
+http://127.0.0.1:8100/druid/index.html
+http://127.0.0.1:8100/actuator

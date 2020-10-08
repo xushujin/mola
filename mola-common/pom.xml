@@ -61,15 +61,4 @@
         </plugins>
     </build>
 
-    <distributionManagement>
-        <repository>
-            <id>rdc-releases</id>
-            <url>https://repo.rdc.aliyun.com/repository/51543-release-lEUwM0/</url>
-        </repository>
-        <snapshotRepository>
-            <id>rdc-snapshots</id>
-            <url>https://repo.rdc.aliyun.com/repository/51543-snapshot-LAtPTL/</url>
-        </snapshotRepository>
-    </distributionManagement>
-
 </project>

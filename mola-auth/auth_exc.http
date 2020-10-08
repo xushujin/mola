@@ -1,0 +1,23 @@
+### 异常测试
+GET http://localhost:8100/demo/demo1
+
+### 异常测试
+GET http://localhost:8100/demo/demo2
+
+### 异常测试
+GET http://localhost:8100/demo/demo3
+
+### 异常测试
+GET http://localhost:8100/demo/ex1
+
+### 异常测试
+GET http://localhost:8100/demo/ex2
+
+### 登出异常测试
+GET http://localhost:8100/logout2
+
+### 超时异常测试
+GET http://localhost:8100/rpc/demo/ex2
+
+### 超时异常测试
+GET http://localhost:8100/rpc/demo/ex3

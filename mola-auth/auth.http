@@ -1,0 +1,32 @@
+### 获取验证码
+GET http://localhost:8100/captcha/gen
+
+### 登陆(带验证码)
+POST http://localhost:8100/login?captcha=27221
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "ZHCkj123"
+}
+
+### 登陆
+POST http://localhost:8100/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "ZHCkj123"
+}
+
+### 登出
+GET http://localhost:8100/logout
+
+### 登出
+GET http://localhost:8100/logout2
+
+### 登出
+GET http://localhost:8100/error/catch
+
+### demo
+GET http://localhost:8100/demo/user
