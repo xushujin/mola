@@ -1,8 +1,8 @@
-package com.mola.core.pojo.factory;
+package com.mola.core.response.success.factory;
 
 
-import com.mola.core.pojo.PageData;
 import com.github.pagehelper.PageInfo;
+import com.mola.core.response.success.pojo.PageData;
 
 /**
  * PageDataFactory

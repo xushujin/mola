@@ -1,4 +1,4 @@
-package com.mola.core.response.failure;
+package com.mola.core.response.failure.pojo;
 
 import lombok.*;
 import lombok.experimental.Accessors;
@@ -14,7 +14,7 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @NoArgsConstructor
 @AllArgsConstructor
-public class FailureVo {
+public class FailureEntity {
     /**
      * 失败提示
      */

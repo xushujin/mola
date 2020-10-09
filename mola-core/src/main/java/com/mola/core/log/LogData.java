@@ -1,9 +1,9 @@
 package com.mola.core.log;
 
-import com.mola.core.helper.JsonHelper;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.mola.core.helper.JsonHelper;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

@@ -1,0 +1,18 @@
+GET http://localhost:8110/demo/demo2
+Accept: application/json
+
+###
+GET http://localhost:8110/demo/demo3
+Accept: application/json
+
+###
+GET http://localhost:8110/demo/ex2
+Accept: application/json
+
+### clickhouse
+GET http://localhost:8110/asset/bill/test1
+Accept: application/json
+
+### clickhouse
+GET http://localhost:8110/asset/bill/test2
+Accept: application/json

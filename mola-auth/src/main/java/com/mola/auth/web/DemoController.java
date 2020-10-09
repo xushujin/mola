@@ -1,7 +1,6 @@
 package com.mola.auth.web;
 
 import com.mola.core.helper.AssertHelper;
-import com.mola.core.response.success.MolaResponseBody;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +22,6 @@ import java.util.HashMap;
  */
 @Slf4j
 @RestController
-//@MolaResponseBody
 @RequestMapping("demo")
 public class DemoController {
 

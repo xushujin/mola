@@ -2,7 +2,6 @@ package com.mola.bi.web;
 
 import com.mola.bi.dao.AssetBillDao;
 import com.mola.bi.entity.AssetBill;
-import com.mola.core.response.success.MolaResponseBody;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Slf4j
 @RestController
-@MolaResponseBody
 @RequestMapping("asset/bill")
 public class AssetBillController {
     @Autowired

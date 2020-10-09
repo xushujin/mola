@@ -1,6 +1,7 @@
 package com.mola.core.response.failure;
 
-import com.mola.core.response.success.SuccessVo;
+import com.mola.core.response.failure.pojo.FailureEntity;
+import com.mola.core.response.success.pojo.SuccessEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.MDC;
 import org.springframework.boot.autoconfigure.web.servlet.error.AbstractErrorController;
@@ -53,7 +54,7 @@ public class MolaErrorController extends AbstractErrorController {
                 ErrorAttributeOptions.Include.STACK_TRACE,
                 ErrorAttributeOptions.Include.MESSAGE);
         Map<String, Object> error = this.errorAttributes.getErrorAttributes(webRequest, options);
-        return response(status.value(), FailureVo.builder().msg(error.toString()).build());
+        return response(status.value(), FailureEntity.builder().msg(error.toString()).build());
     }
 
     /**
@@ -69,9 +70,9 @@ public class MolaErrorController extends AbstractErrorController {
             // 返回请求成功视图（业务code）
             return ResponseEntity
                     .status(HttpStatus.OK)
-                    .body(SuccessVo.builder().code(e.getCode()).msg(e.getMsg()).build());
+                    .body(SuccessEntity.builder().code(e.getCode()).msg(e.getMsg()).build());
         }
-        return response(Integer.parseInt(e.getCode()), FailureVo.builder().msg(e.getMsg()).build());
+        return response(Integer.parseInt(e.getCode()), FailureEntity.builder().msg(e.getMsg()).build());
     }
 
     /**
@@ -83,7 +84,7 @@ public class MolaErrorController extends AbstractErrorController {
     @ExceptionHandler(Exception.class)
     public ResponseEntity exception(Exception e) {
         log.error("authenticationException:", e);
-        return response(HttpStatus.INTERNAL_SERVER_ERROR.value(), FailureVo.builder().msg("未知异常!请联系管理员。").build());
+        return response(HttpStatus.INTERNAL_SERVER_ERROR.value(), FailureEntity.builder().msg("未知异常!请联系管理员。").build());
     }
 
     /**
@@ -93,7 +94,7 @@ public class MolaErrorController extends AbstractErrorController {
      * @param msg
      * @return
      */
-    public ResponseEntity response(int code, FailureVo msg) {
+    public ResponseEntity response(int code, FailureEntity msg) {
         // MDC清理
         MDC.clear();
         return ResponseEntity.status(code).body(msg);

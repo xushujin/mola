@@ -1,4 +1,4 @@
-package com.mola.core.pojo;
+package com.mola.core.response.success.pojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.annotations.ApiModelProperty;

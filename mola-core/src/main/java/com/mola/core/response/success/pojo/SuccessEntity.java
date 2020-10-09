@@ -1,4 +1,4 @@
-package com.mola.core.response.success;
+package com.mola.core.response.success.pojo;
 
 import lombok.*;
 import lombok.experimental.Accessors;
@@ -15,7 +15,7 @@ import org.springframework.http.HttpStatus;
 @Accessors(chain = true)
 @NoArgsConstructor
 @AllArgsConstructor
-public class SuccessVo<T> {
+public class SuccessEntity<T> {
     /**
      * 返回数据
      */

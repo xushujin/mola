@@ -1,7 +1,7 @@
 package com.mola.auth.filter;
 
-import com.mola.auth.handler.MolaAuthFailureHandler;
 import com.google.code.kaptcha.Constants;
+import com.mola.auth.handler.MolaAuthFailureHandler;
 import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;

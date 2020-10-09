@@ -1,9 +1,9 @@
 package com.mola.auth.handler;
 
-import com.mola.auth.filter.MolaAuthFilter;
 import com.mola.auth.filter.CaptchaFilter;
+import com.mola.auth.filter.MolaAuthFilter;
 import com.mola.core.helper.JsonHelper;
-import com.mola.core.response.failure.FailureVo;
+import com.mola.core.response.failure.pojo.FailureEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -51,6 +51,6 @@ public class MolaAuthFailureHandler implements AuthenticationFailureHandler {
         }
         response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
         response.setStatus(HttpStatus.UNPROCESSABLE_ENTITY.value());
-        response.getWriter().write(JsonHelper.toJson(FailureVo.builder().msg(msg).build()));
+        response.getWriter().write(JsonHelper.toJson(FailureEntity.builder().msg(msg).build()));
     }
 }

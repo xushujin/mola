@@ -1,8 +1,8 @@
 package com.mola.auth.config;
 
+import com.mola.auth.filter.CaptchaFilter;
 import com.mola.auth.filter.MolaAuthFilter;
 import com.mola.auth.filter.MolaLogoutFilter;
-import com.mola.auth.filter.CaptchaFilter;
 import com.mola.auth.handler.MolaAuthFailureHandler;
 import com.mola.auth.handler.MolaAuthSuccessHandler;
 import com.mola.auth.handler.MolaLogoutSuccessHandler;

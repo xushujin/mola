@@ -1,6 +1,7 @@
 package com.mola.core.response.failure;
 
 import com.mola.core.helper.JsonHelper;
+import com.mola.core.response.failure.pojo.FailureEntity;
 import feign.Response;
 import feign.codec.ErrorDecoder;
 import lombok.extern.slf4j.Slf4j;
@@ -16,15 +17,15 @@ public class FeignErrorDecoder implements ErrorDecoder {
     @Override
     public Exception decode(String s, Response response) {
         String body = String.valueOf(response.body());
-        FailureVo failureVo = null;
+        FailureEntity failureEntity = null;
         try {
-            failureVo = JsonHelper.fromJson(body, FailureVo.class);
+            failureEntity = JsonHelper.fromJson(body, FailureEntity.class);
         } catch (Exception e) {
             e.printStackTrace();
         }
         throw MolaException.builder()
                 .code(String.valueOf(response.status()))
-                .msg(failureVo != null ? failureVo.getMsg() : body)
+                .msg(failureEntity != null ? failureEntity.getMsg() : body)
                 .build();
     }
 }

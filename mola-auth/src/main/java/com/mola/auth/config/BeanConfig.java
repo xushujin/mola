@@ -1,12 +1,12 @@
 package com.mola.auth.config;
 
+import com.google.code.kaptcha.impl.DefaultKaptcha;
+import com.google.code.kaptcha.util.Config;
 import com.mola.core.cache.RedisConfig;
 import com.mola.core.doc.SwaggerConfig;
 import com.mola.core.ds.DruidDsAutoConfig;
 import com.mola.core.ds.DsProviderConfig;
 import com.mola.core.log.ApiLog;
-import com.google.code.kaptcha.impl.DefaultKaptcha;
-import com.google.code.kaptcha.util.Config;
 import com.mola.core.response.failure.MolaErrorController;
 import com.mola.core.response.success.MolaResponseBodyAdvice;
 import com.mola.core.response.success.MolaWebMvcConfigurer;

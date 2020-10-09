@@ -1,7 +1,7 @@
 package com.mola.auth.handler;
 
 import com.mola.core.helper.JsonHelper;
-import com.mola.core.response.success.SuccessVo;
+import com.mola.core.response.success.pojo.SuccessEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
@@ -26,7 +26,7 @@ public class MolaLogoutSuccessHandler implements LogoutSuccessHandler {
         log.info("登出成功,Authentication:{},requestSessionId:{}", authentication, httpServletRequest.getSession().getId());
         httpServletResponse.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
         try {
-            httpServletResponse.getWriter().write(JsonHelper.toJson(SuccessVo.builder().data("登出成功").build()));
+            httpServletResponse.getWriter().write(JsonHelper.toJson(SuccessEntity.builder().data("登出成功").build()));
         } catch (Exception e) {
             e.printStackTrace();
         }

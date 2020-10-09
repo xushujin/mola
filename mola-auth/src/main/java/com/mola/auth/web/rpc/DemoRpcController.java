@@ -4,7 +4,6 @@ import com.mola.auth.dao.EmployeeDao;
 import com.mola.auth.enyity.Employee;
 import com.mola.common.pojo.dto.DemoDto;
 import com.mola.core.helper.AssertHelper;
-import com.mola.core.response.success.MolaResponseBody;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shardingsphere.core.strategy.keygen.SnowflakeShardingKeyGenerator;
@@ -24,7 +23,6 @@ import java.util.List;
  */
 @Slf4j
 @RestController
-@MolaResponseBody
 @RequestMapping("rpc/demo")
 public class DemoRpcController {
 
