@@ -1,0 +1,14 @@
+### 分表
+GET http://localhost:8100/rpc/demo/test1?key=100000000000000000
+
+### 分表
+GET http://localhost:8100/rpc/demo/test1?key=100000000000000001
+
+### 分表
+GET http://localhost:8100/rpc/demo/test1?key=100000000000000002
+
+### 分表
+GET http://localhost:8100/rpc/demo/test1?key=100
+
+### 分表
+GET http://localhost:8100/rpc/demo/test2
