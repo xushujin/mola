@@ -6,7 +6,6 @@ import com.mola.auth.enyity.LoginUser;
 import com.mola.auth.enyity.UserInfo;
 import com.mola.auth.pojo.bo.LoginUserBo;
 import com.mola.auth.pojo.mapper.LoginUserBoMapper;
-import com.mola.common.consts.enu.TagEnum;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -30,7 +29,7 @@ public class LoginUserServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        LoginUser loginUser = loginUserDao.selectOne(LoginUser.builder().username(username).tag(TagEnum.normal.getCode()).build());
+        LoginUser loginUser = loginUserDao.selectOne(LoginUser.builder().username(username).build());
         UserInfo userInfo = userInfoDao.selectOne(UserInfo.builder().loginUserId(loginUser.getId()).build());
         LoginUserBo loginUserBo = LoginUserBoMapper.MAPPER.loginUserBo(loginUser, userInfo);
         return loginUserBo;

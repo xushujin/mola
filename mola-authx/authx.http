@@ -1,0 +1,34 @@
+### 获取验证码
+GET http://localhost:8101/captcha/gen
+
+### 登陆(带验证码)
+POST http://localhost:8101/login?captcha=27221
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "ZHCkj123"
+}
+
+### 登陆
+POST http://localhost:8101/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "ZHCkj123"
+}
+
+### 登出
+GET http://localhost:8101/logout
+
+### 登出
+GET http://localhost:8101/logout2
+
+### 登出
+GET http://localhost:8101/error/catch
+
+### test1
+GET http://localhost:8101/rpc/demo/test1
+### test2
+GET http://localhost:8101/rpc/demo/test2?username=admin

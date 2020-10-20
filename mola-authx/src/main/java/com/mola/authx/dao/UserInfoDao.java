@@ -2,9 +2,9 @@ package com.mola.authx.dao;
 
 
 import com.mola.authx.enyity.UserInfo;
+import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import org.springframework.stereotype.Repository;
-import tk.mybatis.mapper.additional.insert.InsertListMapper;
-import tk.mybatis.mapper.common.Mapper;
+import reactor.core.publisher.Mono;
 
 /**
  * 登陆用户DAO
@@ -12,5 +12,7 @@ import tk.mybatis.mapper.common.Mapper;
  * @author hatim
  */
 @Repository
-public interface UserInfoDao extends Mapper<UserInfo>, InsertListMapper<UserInfo> {
+public interface UserInfoDao extends ReactiveCrudRepository<UserInfo, Long> {
+
+    Mono<UserInfo> findByLoginUserId(Long loginUserId);
 }

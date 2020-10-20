@@ -1,6 +1,6 @@
 DROP TABLE IF EXISTS `t_auth_login_user`;
 CREATE TABLE `t_auth_login_user` (
-	`id` VARCHAR (32) NOT NULL COMMENT 'id',
+	`id` bigint NOT NULL COMMENT 'id',
 	`username` VARCHAR (32) NOT NULL COMMENT '登陆账号',
 	`password` VARCHAR (128) NOT NULL COMMENT '登陆密码',
 	`tag` TINYINT (2) NOT NULL DEFAULT '0' COMMENT '标签（0:正常数据,1:删除数据,9:异常数据）',
@@ -17,7 +17,7 @@ INSERT INTO `t_auth_login_user` (`id`, `username`, `password`, `tag`, `remark`, 
 
 DROP TABLE IF EXISTS `t_auth_user_info`;
 CREATE TABLE `t_auth_user_info` (
-	`id` VARCHAR (32) NOT NULL COMMENT 'id',
+	`id` bigint NOT NULL COMMENT 'id',
 	`login_user_id` VARCHAR (32) NOT NULL COMMENT '登陆用户ID',
 	`name` VARCHAR (25) NOT NULL COMMENT '用户姓名',
 	`sex` VARCHAR (2) NOT NULL COMMENT '用户性别',

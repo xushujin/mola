@@ -1,5 +1,6 @@
 package com.mola.auth.enyity;
 
+import com.mola.common.consts.enu.TagEnum;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,7 +13,7 @@ import org.hibernate.validator.constraints.Length;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * 用户信息表
@@ -28,14 +29,14 @@ import java.util.Date;
 @Table(name = "t_auth_user_info")
 public class UserInfo {
     @Id
-    private String id;
+    private Long id;
 
     /**
      * 登陆用户ID
      */
     @Length(min = 0, max = 32, message = "登陆用户ID 字段长度不正确")
     @NotNull(message = "登陆用户ID 不能为空")
-    private String loginUserId;
+    private Long loginUserId;
 
     /**
      * 用户姓名
@@ -58,9 +59,10 @@ public class UserInfo {
     /**
      * 标签（0:正常,1:删除,9:异常数据）
      */
+    @Builder.Default
     @Length(min = 0, max = 2, message = "标签 字段长度不正确")
     @NotNull(message = "标签 不能为空")
-    private Integer tag;
+    private Integer tag = TagEnum.normal.getCode();
 
     /**
      * 备注
@@ -73,7 +75,7 @@ public class UserInfo {
      * 创建时间
      */
     @ApiModelProperty(value = "创建时间")
-    private Date createdAt;
+    private LocalDateTime createdAt;
 
     /**
      * 创建人
@@ -86,7 +88,7 @@ public class UserInfo {
      * 更新时间
      */
     @ApiModelProperty(value = "更新时间")
-    private Date updatedAt;
+    private LocalDateTime updatedAt;
 
     /**
      * 更新人

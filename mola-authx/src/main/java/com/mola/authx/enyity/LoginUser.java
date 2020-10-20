@@ -1,6 +1,6 @@
 package com.mola.authx.enyity;
 
-import io.swagger.annotations.ApiModelProperty;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -8,11 +8,11 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import lombok.experimental.FieldNameConstants;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Table;
 
-import javax.persistence.Id;
-import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * 登陆用户表
@@ -25,10 +25,10 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldNameConstants
-@Table(name = "t_auth_login_user")
+@Table("t_auth_login_user")
 public class LoginUser {
     @Id
-    private String id;
+    private Long id;
 
     /**
      * 登陆用户
@@ -54,32 +54,29 @@ public class LoginUser {
      * 备注
      */
     @Length(min = 0, max = 256, message = "备注 字段长度不正确")
-    @ApiModelProperty(value = "备注")
     private String remark;
 
     /**
      * 创建时间
      */
-    @ApiModelProperty(value = "创建时间")
-    private Date createdAt;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private LocalDateTime createdAt;
 
     /**
      * 创建人
      */
     @Length(min = 0, max = 32, message = "创建人 字段长度不正确")
-    @ApiModelProperty(value = "创建人")
     private String createdBy;
 
     /**
      * 更新时间
      */
-    @ApiModelProperty(value = "更新时间")
-    private Date updatedAt;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private LocalDateTime updatedAt;
 
     /**
      * 更新人
      */
     @Length(min = 0, max = 32, message = "更新人 字段长度不正确")
-    @ApiModelProperty(value = "更新人")
     private String updatedBy;
 }

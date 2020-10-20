@@ -1,28 +1,17 @@
 package com.mola.authx.config;
 
-import com.mola.authx.filter.CaptchaFilter;
-import com.mola.authx.filter.MolaAuthFilter;
-import com.mola.authx.filter.MolaLogoutFilter;
-import com.mola.authx.handler.MolaAuthFailureHandler;
-import com.mola.authx.handler.MolaAuthSuccessHandler;
-import com.mola.authx.handler.MolaLogoutSuccessHandler;
-import com.mola.authx.point.MolaAuthEntryPoint;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.authentication.logout.LogoutFilter;
-import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
+import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
+import org.springframework.security.config.web.server.ServerHttpSecurity;
+import org.springframework.security.core.userdetails.MapReactiveUserDetailsService;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.server.SecurityWebFilterChain;
+
+import static org.springframework.security.config.Customizer.withDefaults;
 
 /**
  * 权限配置
@@ -31,11 +20,9 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
  */
 @Slf4j
 @Configuration
-@EnableWebSecurity
+@EnableWebFluxSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
-    private static final String LOGIN_URL = "/login";
+public class SecurityConfig {
 
     private static final String[] MATCHER_URLS = {
             "/v2/api-docs",
@@ -50,72 +37,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/**"
     };
 
-    private final MolaAuthEntryPoint molaAuthEntryPoint;
-    private final MolaLogoutSuccessHandler molaLogoutSuccessHandler;
-    private final MolaAuthSuccessHandler molaAuthSuccessHandler;
-    private final MolaAuthFailureHandler molaAuthFailureHandler;
-    private final UserDetailsService userDetailsService;
-
-    public SecurityConfig(@Qualifier("loginUserServiceImpl") UserDetailsService userDetailsService, MolaAuthSuccessHandler molaAuthSuccessHandler, MolaAuthFailureHandler molaAuthFailureHandler, MolaLogoutSuccessHandler molaLogoutSuccessHandler, MolaAuthEntryPoint molaAuthEntryPoint) {
-        this.userDetailsService = userDetailsService;
-        this.molaAuthSuccessHandler = molaAuthSuccessHandler;
-        this.molaAuthFailureHandler = molaAuthFailureHandler;
-        this.molaLogoutSuccessHandler = molaLogoutSuccessHandler;
-        this.molaAuthEntryPoint = molaAuthEntryPoint;
-    }
-
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-        super.configure(web);
-    }
-
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable();
-        http.exceptionHandling().authenticationEntryPoint(molaAuthEntryPoint);
-        http.authorizeRequests().antMatchers(MATCHER_URLS).permitAll();
-        http.addFilterBefore(new CaptchaFilter(LOGIN_URL), UsernamePasswordAuthenticationFilter.class);
-        http.addFilterAt(customAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
-        http.addFilterAt(customLogoutFilter(), LogoutFilter.class);
-        super.configure(http);
-    }
-
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
-    }
-
-    @Override
-    public UserDetailsService userDetailsServiceBean() throws Exception {
-        return super.userDetailsServiceBean();
-    }
-
-    @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
+    @Bean
+    public MapReactiveUserDetailsService userDetailsService() {
+        UserDetails user = User.withUsername("user")
+                .password("{bcrypt}$2a$10$dXJ3SW6G7P50lGmMkkmwe.20cQQubK3.HZWzG3YB1tlRy.fqvM/BG")
+                .roles("USER")
+                .build();
+        return new MapReactiveUserDetailsService(user);
     }
 
     @Bean
-    MolaAuthFilter customAuthenticationFilter() throws Exception {
-        // 自定义Spring security 登陆
-        MolaAuthFilter filter = new MolaAuthFilter();
-        filter.setAuthenticationSuccessHandler(molaAuthSuccessHandler);
-        filter.setAuthenticationFailureHandler(molaAuthFailureHandler);
-        filter.setFilterProcessesUrl(LOGIN_URL);
-        // 重用WebSecurityConfigurerAdapter配置的AuthenticationManager
-        filter.setAuthenticationManager(authenticationManagerBean());
-        return filter;
+    public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
+        http.authorizeExchange(exchanges -> exchanges
+                .pathMatchers(MATCHER_URLS).permitAll()
+                .anyExchange().authenticated()
+        )
+                .httpBasic(withDefaults())
+                .formLogin(withDefaults())
+                .csrf(csrf -> csrf.disable());
+        return http.build();
     }
-
-    @Bean
-    MolaLogoutFilter customLogoutFilter() {
-        MolaLogoutFilter molaLogoutFilter = new MolaLogoutFilter(molaLogoutSuccessHandler, securityContextLogoutHandler());
-        return molaLogoutFilter;
-    }
-
-    @Bean
-    SecurityContextLogoutHandler securityContextLogoutHandler() {
-        return new SecurityContextLogoutHandler();
-    }
-
 }

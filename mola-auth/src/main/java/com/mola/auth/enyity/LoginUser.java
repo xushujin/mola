@@ -1,5 +1,6 @@
 package com.mola.auth.enyity;
 
+import com.mola.common.consts.enu.TagEnum;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,7 +13,7 @@ import org.hibernate.validator.constraints.Length;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * 登陆用户表
@@ -28,7 +29,7 @@ import java.util.Date;
 @Table(name = "t_auth_login_user")
 public class LoginUser {
     @Id
-    private String id;
+    private Long id;
 
     /**
      * 登陆用户
@@ -46,9 +47,10 @@ public class LoginUser {
     /**
      * 标签（0:正常,1:删除,9:异常数据）
      */
+    @Builder.Default
     @Length(min = 0, max = 2, message = "标签 字段长度不正确")
     @NotNull(message = "标签 不能为空")
-    private Integer tag;
+    private Integer tag = TagEnum.normal.getCode();
 
     /**
      * 备注
@@ -61,7 +63,7 @@ public class LoginUser {
      * 创建时间
      */
     @ApiModelProperty(value = "创建时间")
-    private Date createdAt;
+    private LocalDateTime createdAt;
 
     /**
      * 创建人
@@ -74,7 +76,7 @@ public class LoginUser {
      * 更新时间
      */
     @ApiModelProperty(value = "更新时间")
-    private Date updatedAt;
+    private LocalDateTime updatedAt;
 
     /**
      * 更新人
