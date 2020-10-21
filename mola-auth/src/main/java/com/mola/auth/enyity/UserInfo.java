@@ -36,24 +36,28 @@ public class UserInfo {
      */
     @Length(min = 0, max = 32, message = "登陆用户ID 字段长度不正确")
     @NotNull(message = "登陆用户ID 不能为空")
+    @ApiModelProperty(value = "登陆用户ID")
     private Long loginUserId;
 
     /**
      * 用户姓名
      */
     @Length(min = 0, max = 25, message = "用户姓名 字段长度不正确")
+    @ApiModelProperty(value = "用户姓名")
     private String name;
 
     /**
      * 用户性别
      */
     @Length(min = 0, max = 2, message = "用户性别 字段长度不正确")
+    @ApiModelProperty(value = "用户性别")
     private String sex;
 
     /**
      * 用户年龄
      */
     @Length(min = 0, max = 3, message = "用户年龄 字段长度不正确")
+    @ApiModelProperty(value = "用户年龄")
     private Integer age;
 
     /**
@@ -62,6 +66,7 @@ public class UserInfo {
     @Builder.Default
     @Length(min = 0, max = 2, message = "标签 字段长度不正确")
     @NotNull(message = "标签 不能为空")
+    @ApiModelProperty(value = "标签（0:正常,1:删除,9:异常数据）")
     private Integer tag = TagEnum.normal.getCode();
 
     /**

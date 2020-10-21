@@ -35,6 +35,8 @@ public class LoginUser {
      * 登陆用户
      */
     @Length(min = 0, max = 32, message = "登陆用户 字段长度不正确")
+    @NotNull(message = "登陆用户 不能为空")
+    @ApiModelProperty(value = "登陆用户")
     private String username;
 
     /**
@@ -42,6 +44,7 @@ public class LoginUser {
      */
     @Length(min = 0, max = 128, message = "登陆密码 字段长度不正确")
     @NotNull(message = "登陆密码 不能为空")
+    @ApiModelProperty(value = "登陆密码")
     private String password;
 
     /**
@@ -50,6 +53,7 @@ public class LoginUser {
     @Builder.Default
     @Length(min = 0, max = 2, message = "标签 字段长度不正确")
     @NotNull(message = "标签 不能为空")
+    @ApiModelProperty(value = "标签（0:正常,1:删除,9:异常数据）")
     private Integer tag = TagEnum.normal.getCode();
 
     /**
