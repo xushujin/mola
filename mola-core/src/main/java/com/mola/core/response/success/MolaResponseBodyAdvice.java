@@ -4,6 +4,7 @@ import com.mola.core.response.success.pojo.SuccessEntity;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -12,8 +13,8 @@ import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
-import springfox.documentation.swagger.web.SecurityConfiguration;
-import springfox.documentation.swagger.web.UiConfiguration;
+
+import java.util.Optional;
 
 /**
  * Response拦截处理
@@ -23,24 +24,30 @@ import springfox.documentation.swagger.web.UiConfiguration;
 @Slf4j
 @RestControllerAdvice
 public class MolaResponseBodyAdvice implements ResponseBodyAdvice<Object> {
+    private static final String PACKAGE_NAME = "com.mola";
+    private static final String SWAGGER_BASE_PACKAGE = "swagger.base-package";
+
+    private final Environment environment;
+
+    public MolaResponseBodyAdvice(Environment environment) {
+        this.environment = environment;
+    }
 
     @Override
     public boolean supports(MethodParameter methodParameter, Class<? extends HttpMessageConverter<?>> aClass) {
-        return true;
+        if (methodParameter.getMethod().toString().contains(
+                Optional.ofNullable(environment.getProperty(SWAGGER_BASE_PACKAGE)).orElse(PACKAGE_NAME))) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @SneakyThrows
     @Override
     public Object beforeBodyWrite(Object object, MethodParameter methodParameter, MediaType mediaType, Class<? extends HttpMessageConverter<?>> aClass, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
-        log.info("uri:{}", serverHttpRequest.getURI());
-        if (serverHttpRequest.getURI().toString().contains("swagger-resources") ||
-                serverHttpRequest.getURI().toString().contains("api-docs")) {
-            return object;
-        } else {
-            serverHttpResponse.setStatusCode(httpStatus(serverHttpRequest.getMethod()));
-            return SuccessEntity.builder().data(object).build();
-        }
-
+        serverHttpResponse.setStatusCode(httpStatus(serverHttpRequest.getMethod()));
+        return SuccessEntity.builder().data(object).build();
     }
 
     /**

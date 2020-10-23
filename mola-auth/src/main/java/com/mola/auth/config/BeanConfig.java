@@ -104,7 +104,7 @@ public class BeanConfig {
      */
     @Bean
     public MolaResponseBodyAdvice molaResponseBodyAdvice() {
-        return new MolaResponseBodyAdvice();
+        return new MolaResponseBodyAdvice(environment);
     }
 
     /**

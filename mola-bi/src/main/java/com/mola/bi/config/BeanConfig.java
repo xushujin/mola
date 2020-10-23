@@ -12,7 +12,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.env.Environment;
-import springfox.documentation.oas.annotations.EnableOpenApi;
 import springfox.documentation.spring.web.plugins.Docket;
 
 /**
@@ -21,7 +20,6 @@ import springfox.documentation.spring.web.plugins.Docket;
  * @author hatim
  */
 @Configuration
-@EnableOpenApi
 @Import({
         MolaWebMvcConfigurer.class
 })
@@ -80,7 +78,7 @@ public class BeanConfig {
      */
     @Bean
     public MolaResponseBodyAdvice molaResponseBodyAdvice() {
-        return new MolaResponseBodyAdvice();
+        return new MolaResponseBodyAdvice(environment);
     }
 
     /**
