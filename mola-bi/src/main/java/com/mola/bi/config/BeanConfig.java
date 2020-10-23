@@ -1,6 +1,7 @@
 package com.mola.bi.config;
 
 import com.mola.core.doc.SwaggerConfig;
+import com.mola.core.ds.DruidDsAutoConfig;
 import com.mola.core.log.ApiLog;
 import com.mola.core.response.failure.FeignErrorDecoder;
 import com.mola.core.response.failure.MolaErrorController;
