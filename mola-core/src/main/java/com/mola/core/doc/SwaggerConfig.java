@@ -25,7 +25,6 @@ import java.util.List;
 @EnableOpenApi
 public class SwaggerConfig {
 
-    private static final String SWAGGER_ENABLE = "swagger.enable";
     private static final String SWAGGER_BASE_PACKAGE = "swagger.base-package";
     private static final String SWAGGER_TITLE = "swagger.title";
     private static final String SWAGGER_DESCRIPTION = "swagger.description";
@@ -37,6 +36,7 @@ public class SwaggerConfig {
     private static final String GLOBAL = "global";
 
     private static final String PROD = "prod";
+    private static final String SPRING_PROFILES_ACTIVE = "spring.profiles.active";
 
     private final Environment environment;
 
@@ -49,7 +49,7 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.OAS_30)
                 .securitySchemes(securitySchemes())
                 .securityContexts(securityContexts())
-                .enable(StringHelper.equals(environment.getProperty("spring.profiles.active"), PROD) ? false : true)
+                .enable(StringHelper.equals(environment.getProperty(SPRING_PROFILES_ACTIVE), PROD) ? false : true)
                 .apiInfo(apiInfo())
                 .select()
                 .apis(RequestHandlerSelectors.basePackage(environment.getProperty(SWAGGER_BASE_PACKAGE)))

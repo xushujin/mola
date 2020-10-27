@@ -10,6 +10,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.MDC;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.annotation.Order;
 
 import java.util.UUID;
@@ -25,6 +26,8 @@ import java.util.UUID;
 @Order(1)
 @Aspect
 public class ApiLog {
+    @Value("${api.log.out.print}")
+    private boolean outLogPrint;
 
     private static final String LOG_IN_TITLE = "[入口日志]_@_{}";
     private static final String LOG_OUT_TITLE = "[出口日志]_@_{}";
@@ -78,7 +81,9 @@ public class ApiLog {
                 }
             } else {
                 logData.setStatus(RequestStatusEnu.SUCCESS.toString());
-                log.info(LOG_OUT_TITLE, logData);
+                if (outLogPrint) {
+                    log.info(LOG_OUT_TITLE, logData);
+                }
                 // MDC清理
                 MDC.clear();
             }
