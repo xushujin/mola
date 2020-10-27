@@ -2,6 +2,7 @@ package com.mola.core.doc;
 
 import com.mola.core.helper.StringHelper;
 import io.swagger.models.auth.In;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -25,11 +26,16 @@ import java.util.List;
 @EnableOpenApi
 public class SwaggerConfig {
 
-    private static final String SWAGGER_BASE_PACKAGE = "swagger.base-package";
-    private static final String SWAGGER_TITLE = "swagger.title";
-    private static final String SWAGGER_DESCRIPTION = "swagger.description";
-    private static final String SWAGGER_TERMS_OF_SERVICE_URL = "swagger.terms-of-service-url";
-    private static final String SWAGGER_VERSION = "swagger.version";
+    @Value("${swagger.base-package}")
+    private String swagger_base_package;
+    @Value("${swagger.title}")
+    private String swagger_title;
+    @Value("${swagger.description}")
+    private String swagger_description;
+    @Value("${swagger.terms-of-service-url}")
+    private String swagger_terms_of_service_url;
+    @Value("${swagger.version}")
+    private String swagger_version;
 
     private static final String ACCESS_TOKEN = "ACCESS_TOKEN";
     private static final String MOLA_SESSION_ID = "MOLA_SESSION_ID";
@@ -52,17 +58,17 @@ public class SwaggerConfig {
                 .enable(StringHelper.equals(environment.getProperty(SPRING_PROFILES_ACTIVE), PROD) ? false : true)
                 .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage(environment.getProperty(SWAGGER_BASE_PACKAGE)))
+                .apis(RequestHandlerSelectors.basePackage(swagger_base_package))
                 .paths(PathSelectors.any())
                 .build();
     }
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title(environment.getProperty(SWAGGER_TITLE))
-                .description(environment.getProperty(SWAGGER_DESCRIPTION))
-                .termsOfServiceUrl(environment.getProperty(SWAGGER_TERMS_OF_SERVICE_URL))
-                .version(environment.getProperty(SWAGGER_VERSION))
+                .title(swagger_title)
+                .description(swagger_description)
+                .termsOfServiceUrl(swagger_terms_of_service_url)
+                .version(swagger_version)
                 .build();
     }
 
