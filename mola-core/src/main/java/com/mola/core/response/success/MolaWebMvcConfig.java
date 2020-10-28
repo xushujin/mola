@@ -13,7 +13,7 @@ import java.util.List;
  * @author hatim
  */
 @Configuration
-public class MolaWebMvcConfigurer implements WebMvcConfigurer {
+public class MolaWebMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {

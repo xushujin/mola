@@ -16,13 +16,14 @@ import org.springframework.context.annotation.Primary;
 @Configuration
 public class DataSourceConfig {
 
-    @Primary
+
     @Bean(name = "${spring.datasource.druid.mysql.name}", initMethod = "init")
     @ConfigurationProperties(prefix = "spring.datasource.druid.mysql")
     public DruidDataSource mysqlDs() {
         return new DruidDataSource();
     }
 
+    @Primary
     @Bean(name = "${spring.datasource.druid.clickhouse.name}", initMethod = "init")
     @ConfigurationProperties(prefix = "spring.datasource.druid.clickhouse")
     public DruidDataSource clickHouseDs() {

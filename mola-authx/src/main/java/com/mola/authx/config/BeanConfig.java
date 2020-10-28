@@ -1,11 +1,9 @@
 package com.mola.authx.config;
 
 import com.mola.core.doc.SwaggerConfig;
-import com.mola.core.log.ApiLog;
-import org.springframework.context.annotation.Bean;
+import com.mola.core.log.ApiLogConfig;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.core.env.Environment;
 import springfox.documentation.oas.annotations.EnableOpenApi;
 
 /**
@@ -16,22 +14,8 @@ import springfox.documentation.oas.annotations.EnableOpenApi;
 @Configuration
 @EnableOpenApi
 @Import({
-        SwaggerConfig.class
+        SwaggerConfig.class,
+        ApiLogConfig.class
 })
 public class BeanConfig {
-    private final Environment environment;
-
-    public BeanConfig(Environment environment) {
-        this.environment = environment;
-    }
-
-    /**
-     * 日志拦截器装载
-     *
-     * @return
-     */
-    @Bean
-    public ApiLog apiLogAop() {
-        return new ApiLog();
-    }
 }

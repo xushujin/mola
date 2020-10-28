@@ -7,6 +7,7 @@ import org.slf4j.MDC;
 import org.springframework.boot.autoconfigure.web.servlet.error.AbstractErrorController;
 import org.springframework.boot.web.error.ErrorAttributeOptions;
 import org.springframework.boot.web.servlet.error.ErrorAttributes;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -29,11 +30,11 @@ import java.util.Map;
 @Controller
 @RestControllerAdvice
 @RequestMapping({"${server.error.path}"})
-public class MolaErrorController extends AbstractErrorController {
+public class MolaErrorConfig extends AbstractErrorController {
 
     private final ErrorAttributes errorAttributes;
 
-    public MolaErrorController(ErrorAttributes errorAttributes) {
+    public MolaErrorConfig(ErrorAttributes errorAttributes) {
         super(errorAttributes);
         this.errorAttributes = errorAttributes;
     }

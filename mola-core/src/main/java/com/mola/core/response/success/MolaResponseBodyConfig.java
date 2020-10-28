@@ -23,13 +23,13 @@ import java.util.Optional;
  */
 @Slf4j
 @RestControllerAdvice
-public class MolaResponseBodyAdvice implements ResponseBodyAdvice<Object> {
+public class MolaResponseBodyConfig implements ResponseBodyAdvice<Object> {
     private static final String PACKAGE_NAME = "com.mola";
     private static final String SWAGGER_BASE_PACKAGE = "swagger.base-package";
 
     private final Environment environment;
 
-    public MolaResponseBodyAdvice(Environment environment) {
+    public MolaResponseBodyConfig(Environment environment) {
         this.environment = environment;
     }
 

@@ -5,6 +5,7 @@ import com.mola.core.response.failure.pojo.FailureEntity;
 import feign.Response;
 import feign.codec.ErrorDecoder;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Configuration;
 
 /**
  * feign异常拦截
@@ -12,7 +13,8 @@ import lombok.extern.slf4j.Slf4j;
  * @author hatim
  */
 @Slf4j
-public class FeignErrorDecoder implements ErrorDecoder {
+@Configuration
+public class FeignErrorConfig implements ErrorDecoder {
 
     @Override
     public Exception decode(String s, Response response) {

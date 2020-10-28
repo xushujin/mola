@@ -11,6 +11,7 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 
 import java.util.UUID;
@@ -25,7 +26,7 @@ import java.util.UUID;
 @Slf4j
 @Order(1)
 @Aspect
-public class ApiLog {
+public class ApiLogConfig {
     @Value("${api.log.out.print}")
     private boolean outLogPrint;
 
