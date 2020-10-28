@@ -20,7 +20,6 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.support.EncodedResource;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
 import springfox.documentation.oas.annotations.EnableOpenApi;
-import springfox.documentation.spring.web.plugins.Docket;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -36,7 +35,8 @@ import java.util.Properties;
 @Import({DruidDsAutoConfig.class,
         DsProviderConfig.class,
         RedisConfig.class,
-        MolaWebMvcConfigurer.class
+        MolaWebMvcConfigurer.class,
+        SwaggerConfig.class
 })
 public class BeanConfig {
     private final Environment environment;
@@ -73,16 +73,6 @@ public class BeanConfig {
     @Bean
     public ErrorAttributes errorAttributes() {
         return new DefaultErrorAttributes();
-    }
-
-    /**
-     * swagger文档配置装载
-     *
-     * @return
-     */
-    @Bean
-    public Docket SwaggerConfig() {
-        return new SwaggerConfig(environment).docket();
     }
 
     /**

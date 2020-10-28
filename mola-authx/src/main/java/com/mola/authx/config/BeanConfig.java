@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.env.Environment;
 import springfox.documentation.oas.annotations.EnableOpenApi;
-import springfox.documentation.spring.web.plugins.Docket;
 
 /**
  * bean 装载器
@@ -17,6 +16,7 @@ import springfox.documentation.spring.web.plugins.Docket;
 @Configuration
 @EnableOpenApi
 @Import({
+        SwaggerConfig.class
 })
 public class BeanConfig {
     private final Environment environment;
@@ -33,15 +33,5 @@ public class BeanConfig {
     @Bean
     public ApiLog apiLogAop() {
         return new ApiLog();
-    }
-
-    /**
-     * swagger文档配置装载
-     *
-     * @return
-     */
-    @Bean
-    public Docket SwaggerConfig() {
-        return new SwaggerConfig(environment).docket();
     }
 }

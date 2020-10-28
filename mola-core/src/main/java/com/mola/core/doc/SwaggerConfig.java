@@ -4,6 +4,7 @@ import com.mola.core.helper.StringHelper;
 import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
@@ -24,6 +25,7 @@ import java.util.List;
  * @author hatim
  */
 @EnableOpenApi
+@Configuration
 public class SwaggerConfig {
 
     @Value("${swagger.base-package}")

@@ -1,7 +1,6 @@
 package com.mola.bi.config;
 
 import com.mola.core.doc.SwaggerConfig;
-import com.mola.core.ds.DruidDsAutoConfig;
 import com.mola.core.log.ApiLog;
 import com.mola.core.response.failure.FeignErrorDecoder;
 import com.mola.core.response.failure.MolaErrorController;
@@ -13,7 +12,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.env.Environment;
-import springfox.documentation.spring.web.plugins.Docket;
 
 /**
  * bean 装载器
@@ -22,7 +20,8 @@ import springfox.documentation.spring.web.plugins.Docket;
  */
 @Configuration
 @Import({
-        MolaWebMvcConfigurer.class
+        MolaWebMvcConfigurer.class,
+        SwaggerConfig.class
 })
 public class BeanConfig {
 
@@ -82,13 +81,4 @@ public class BeanConfig {
         return new MolaResponseBodyAdvice(environment);
     }
 
-    /**
-     * swagger文档配置装载
-     *
-     * @return
-     */
-    @Bean
-    public Docket SwaggerConfig() {
-        return new SwaggerConfig(environment).docket();
-    }
 }
