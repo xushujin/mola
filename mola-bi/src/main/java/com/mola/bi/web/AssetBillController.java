@@ -1,5 +1,6 @@
 package com.mola.bi.web;
 
+import com.mola.bi.config.TargetDataSource;
 import com.mola.bi.dao.AssetBillDao;
 import com.mola.bi.entity.AssetBill;
 import io.swagger.annotations.ApiOperation;
@@ -25,6 +26,7 @@ public class AssetBillController {
         return assetBillDao.selectCount(AssetBill.builder().build());
     }
 
+    @TargetDataSource
     @ApiOperation(value = "test2", notes = "test2")
     @GetMapping("/test2")
     public AssetBill test2() {
