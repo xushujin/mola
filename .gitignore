@@ -67,3 +67,4 @@ build/
 
 ### log
 *.gz
+*.tmp
