@@ -1,4 +1,4 @@
-package com.mola.bi.config;
+package com.mola.bi.ds;
 
 import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;
 import lombok.extern.slf4j.Slf4j;
@@ -20,15 +20,12 @@ import java.util.Map;
 @Configuration
 public class DataSourceConfig {
 
-    //    @Bean(name = "${spring.datasource.druid.mysql.name}")
     @Bean
     @ConfigurationProperties(prefix = "spring.datasource.druid.mysql")
     public DataSource mysqlDs() {
         return DruidDataSourceBuilder.create().build();
     }
 
-
-    //    @Bean(name = "${spring.datasource.druid.clickhouse.name}")
     @Bean
     @ConfigurationProperties(prefix = "spring.datasource.druid.clickhouse")
     public DataSource clickHouseDs() {
@@ -38,9 +35,9 @@ public class DataSourceConfig {
     @Bean
     @Primary
     public DynamicDataSource dataSource(DataSource mysqlDs, DataSource clickHouseDs) {
-        Map<Object, Object> targetDataSources = new HashMap<>(5);
-        targetDataSources.put("mysqlDs", mysqlDs);
-        targetDataSources.put("clickHouseDs", clickHouseDs);
+        Map<Object, Object> targetDataSources = new HashMap<>(2);
+        targetDataSources.put(TargetDs.MYSQL_DS, mysqlDs);
+        targetDataSources.put(TargetDs.CLICK_HOUSE_DS, clickHouseDs);
         return new DynamicDataSource(mysqlDs, targetDataSources);
     }
 }
