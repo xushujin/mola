@@ -1,4 +1,4 @@
-package com.mola.bi.config;
+package com.mola.bi.ds;
 
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -16,9 +16,9 @@ import org.springframework.core.annotation.Order;
 @Order(-1)
 @Aspect
 @Configuration
-public class DataSourceExchangeConfig {
+public class TargetDsAop {
 
-    @Pointcut("@annotation(com.mola.bi.config.TargetDataSource)")
+    @Pointcut("@annotation(com.mola.bi.ds.TargetDs)")
     public void pointCut() {
     }
 
@@ -26,8 +26,8 @@ public class DataSourceExchangeConfig {
     public Object handle(ProceedingJoinPoint pjp) throws Throwable {
         try {
             MethodSignature signature = (MethodSignature) pjp.getSignature();
-            TargetDataSource targetDataSource = signature.getMethod().getAnnotation(TargetDataSource.class);
-            DataSourceHolder.setDataSource(targetDataSource.name());
+            TargetDs targetDs = signature.getMethod().getAnnotation(TargetDs.class);
+            DataSourceHolder.setDataSource(targetDs.value());
             return pjp.proceed();
         } finally {
             DataSourceHolder.clearDataSource();

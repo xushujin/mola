@@ -1,7 +1,7 @@
 package com.mola.bi.web;
 
-import com.mola.bi.config.TargetDataSource;
 import com.mola.bi.dao.AssetBillDao;
+import com.mola.bi.ds.TargetDs;
 import com.mola.bi.entity.AssetBill;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -26,7 +26,7 @@ public class AssetBillController {
         return assetBillDao.selectCount(AssetBill.builder().build());
     }
 
-    @TargetDataSource
+    @TargetDs(TargetDs.CLICK_HOUSE_DS)
     @ApiOperation(value = "test2", notes = "test2")
     @GetMapping("/test2")
     public AssetBill test2() {

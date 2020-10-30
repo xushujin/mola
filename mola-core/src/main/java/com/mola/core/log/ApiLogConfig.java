@@ -11,7 +11,6 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 
 import java.util.UUID;
@@ -30,8 +29,8 @@ public class ApiLogConfig {
     @Value("${api.log.out.print}")
     private boolean outLogPrint;
 
-    private static final String LOG_IN_TITLE = "[入口日志]_@_{}";
-    private static final String LOG_OUT_TITLE = "[出口日志]_@_{}";
+    private static final String LOG_IN_TITLE = "[入口日志]:{}";
+    private static final String LOG_OUT_TITLE = "[出口日志]:{}";
 
     @Pointcut("@annotation(io.swagger.annotations.ApiOperation)")
     public void pointCut() {

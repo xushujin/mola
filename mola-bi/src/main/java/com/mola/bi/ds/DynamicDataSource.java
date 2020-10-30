@@ -1,4 +1,4 @@
-package com.mola.bi.config;
+package com.mola.bi.ds;
 
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 
@@ -7,10 +7,11 @@ import java.util.Map;
 
 
 /**
+ * 数据源切换逻辑
+ *
  * @author hatim
  */
 public class DynamicDataSource extends AbstractRoutingDataSource {
-
 
     @Override
     protected Object determineCurrentLookupKey() {
@@ -22,6 +23,4 @@ public class DynamicDataSource extends AbstractRoutingDataSource {
         super.setTargetDataSources(targetDataSources);
         super.afterPropertiesSet();
     }
-
-
 }
