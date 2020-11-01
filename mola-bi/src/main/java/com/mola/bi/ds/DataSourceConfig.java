@@ -34,10 +34,10 @@ public class DataSourceConfig {
 
     @Bean
     @Primary
-    public DynamicDataSource dataSource(DataSource mysqlDs, DataSource clickHouseDs) {
+    public DynamicDataSourceRouter dynamicDataSourceRouter(DataSource mysqlDs, DataSource clickHouseDs) {
         Map<Object, Object> targetDataSources = new HashMap<>(2);
         targetDataSources.put(TargetDs.MYSQL_DS, mysqlDs);
         targetDataSources.put(TargetDs.CLICK_HOUSE_DS, clickHouseDs);
-        return new DynamicDataSource(mysqlDs, targetDataSources);
+        return new DynamicDataSourceRouter(mysqlDs, targetDataSources);
     }
 }
