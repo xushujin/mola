@@ -29,8 +29,8 @@ public class ApiLogConfig {
     @Value("${api.log.out.print}")
     private boolean outLogPrint;
 
-    private static final String LOG_IN_TITLE = "[入口日志]:{}";
-    private static final String LOG_OUT_TITLE = "[出口日志]:{}";
+    private static final String LOG_IN_TITLE = "| 入口日志 | {} |";
+    private static final String LOG_OUT_TITLE = "| 出口日志 | {} |";
 
     @Pointcut("@annotation(io.swagger.annotations.ApiOperation)")
     public void pointCut() {
