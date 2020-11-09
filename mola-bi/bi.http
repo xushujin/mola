@@ -16,3 +16,7 @@ Accept: application/json
 ### clickhouse
 GET http://localhost:8110/asset/bill/test2
 Accept: application/json
+
+### clickhouse
+GET http://localhost:8110/asset/bill/test3
+Accept: application/json

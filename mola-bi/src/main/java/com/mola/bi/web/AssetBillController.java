@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 /**
  * @author hatim
  */
@@ -31,5 +33,12 @@ public class AssetBillController {
     @GetMapping("/test2")
     public AssetBill test2() {
         return assetBillDao.selectByPrimaryKey("173038070963728384");
+    }
+
+    @TargetDs(TargetDs.CLICK_HOUSE_DS)
+    @ApiOperation(value = "test3", notes = "test3")
+    @GetMapping("/test3")
+    public List<AssetBill> test3() {
+        return assetBillDao.select(AssetBill.builder().id("173038070963728384").build());
     }
 }

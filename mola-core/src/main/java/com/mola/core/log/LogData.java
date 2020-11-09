@@ -1,14 +1,13 @@
 package com.mola.core.log;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.mola.core.helper.JsonHelper;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.Accessors;
+
+import java.util.Optional;
 
 /**
  * 日志数据
@@ -23,6 +22,14 @@ import lombok.experimental.Accessors;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class LogData {
+    public static final String SEPARATOR = " ::: ";
+    public static final String LOG_IN_HEAD = "[入口日志]";
+    public static final String LOG_OUT_HEAD = "[出口日志]";
+
+    /**
+     * 日志头
+     */
+    private String head;
     /**
      * 执行状态
      */
@@ -30,7 +37,7 @@ public class LogData {
     /**
      * 执行耗时
      */
-    private long useTime;
+    private Long useTime;
     /**
      * 入口方法名称
      */
@@ -51,15 +58,29 @@ public class LogData {
      * 执行结果
      */
     private Object result;
+    /**
+     * 是否打印执行结果
+     */
+    @JsonIgnore
+    private Boolean resultPrint;
 
+    @SneakyThrows
     @Override
     public String toString() {
-        String info = null;
-        try {
-            info = JsonHelper.toJson(this);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
+        StringBuilder sb = new StringBuilder(head).append(" ");
+        // 方法相关
+        sb.append(methodDesc).append("::")
+                .append(methodName).append("::")
+                .append(JsonHelper.toJson(methodArgs))
+                .append(SEPARATOR).append(Optional.ofNullable(operator).orElse(""));
+        if (LOG_OUT_HEAD.equals(head)) {
+            // 接口处理状态
+            sb.append(SEPARATOR).append(Optional.ofNullable(status).orElse(""))
+                    // 接口请求耗时
+                    .append(SEPARATOR).append(useTime == null ? "" : useTime + "ms")
+                    // 接口返回结果
+                    .append(SEPARATOR).append(resultPrint ? (result == null ? "" : JsonHelper.toJson(result)) : "");
         }
-        return info;
+        return sb.toString();
     }
 }

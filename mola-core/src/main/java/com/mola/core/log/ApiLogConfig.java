@@ -12,6 +12,7 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.annotation.Order;
+import org.springframework.util.StopWatch;
 
 import java.util.UUID;
 
@@ -28,9 +29,8 @@ import java.util.UUID;
 public class ApiLogConfig {
     @Value("${api.log.out.print}")
     private boolean outLogPrint;
-
-    private static final String LOG_IN_TITLE = "| 入口日志 | {} |";
-    private static final String LOG_OUT_TITLE = "| 出口日志 | {} |";
+    @Value("${api.log.result.print}")
+    private boolean resultPrint;
 
     @Pointcut("@annotation(io.swagger.annotations.ApiOperation)")
     public void pointCut() {
@@ -38,8 +38,9 @@ public class ApiLogConfig {
 
     @Around("pointCut()")
     public Object handle(ProceedingJoinPoint pjp) throws Throwable {
-        long startTime = System.currentTimeMillis();
-        LogData logData = LogData.builder().build();
+        StopWatch stopWatch = new StopWatch("took time");
+        stopWatch.start("before");
+        LogData logData = LogData.builder().resultPrint(resultPrint).build();
         // 把UUID加入MD，线索化方便排查问题
         String uuid = UUID.randomUUID().toString().replaceAll("-", "");
         try {
@@ -56,8 +57,9 @@ public class ApiLogConfig {
 
             // 组装日志数据
             logData.setMethodName(methodName).setMethodDesc(methodDesc).setMethodArgs(methodArgs);
-
-            log.info(LOG_IN_TITLE, logData);
+            log.info(logData.setHead(LogData.LOG_IN_HEAD).toString());
+            stopWatch.stop();
+            stopWatch.start(methodDesc);
             // 执行方法
             logData.setResult(pjp.proceed());
         } catch (Throwable throwable) {
@@ -65,8 +67,10 @@ public class ApiLogConfig {
             logData.setResult(throwable);
             throw throwable;
         } finally {
+            stopWatch.stop();
+            stopWatch.start("after");
             // 请求耗时
-            logData.setUseTime(System.currentTimeMillis() - startTime);
+            logData.setUseTime(stopWatch.getLastTaskTimeMillis());
 
             // 功能名称、请求时间、请求结果、请求用户
             // 如果是正常返回则不打印返回值，请求异常才打印返回值
@@ -75,19 +79,22 @@ public class ApiLogConfig {
                 logData.setResult(((Throwable) logData.getResult()).getMessage());
                 // 这里细分，捕获异常未warn
                 if (logData.getResult() instanceof MolaException) {
-                    log.warn(LOG_OUT_TITLE, logData);
+                    log.warn(logData.setHead(LogData.LOG_OUT_HEAD).toString());
                 } else {
-                    log.error(LOG_OUT_TITLE, logData);
+                    log.error(logData.setHead(LogData.LOG_OUT_HEAD).toString());
                 }
+                stopWatch.stop();
+                log.info(stopWatch.toString());
             } else {
                 logData.setStatus(RequestStatusEnu.SUCCESS.toString());
                 if (outLogPrint) {
-                    log.info(LOG_OUT_TITLE, logData);
+                    log.info(logData.setHead(LogData.LOG_OUT_HEAD).toString());
                 }
-                // MDC清理
+                stopWatch.stop();
+                log.info(stopWatch.toString());
+                // MDC清理 TODO 因为catch那里有throw动作，finally结束后会被异常捕获，所以MDC.clear只能在正常返回后执行，以及异常处理后执行
                 MDC.clear();
             }
-
         }
         return logData.getResult();
     }
@@ -100,4 +107,5 @@ public class ApiLogConfig {
     private static Object[] methodArgs(ProceedingJoinPoint point) {
         return point.getArgs();
     }
+
 }
