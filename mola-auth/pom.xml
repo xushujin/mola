@@ -120,18 +120,6 @@
             <artifactId>hibernate-validator</artifactId>
         </dependency>
         <!-- validator start -->
-        <!-- mapstruct start -->
-        <dependency>
-            <groupId>org.mapstruct</groupId>
-            <artifactId>mapstruct</artifactId>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.mapstruct</groupId>
-            <artifactId>mapstruct-processor</artifactId>
-            <scope>compile</scope>
-        </dependency>
-        <!-- mapstruct end -->
         <!-- sharding-jdbc start -->
         <dependency>
             <groupId>org.apache.shardingsphere</groupId>
