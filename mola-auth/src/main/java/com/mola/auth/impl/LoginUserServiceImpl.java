@@ -6,6 +6,7 @@ import com.mola.auth.enyity.LoginUser;
 import com.mola.auth.enyity.UserInfo;
 import com.mola.auth.pojo.bo.LoginUserBo;
 import com.mola.auth.pojo.mapper.LoginUserBoMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
  *
  * @author hatim
  */
+@Slf4j
 @Service
 public class LoginUserServiceImpl implements UserDetailsService {
     private final LoginUserDao loginUserDao;

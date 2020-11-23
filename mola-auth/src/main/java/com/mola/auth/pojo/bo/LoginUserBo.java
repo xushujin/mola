@@ -23,7 +23,7 @@ public class LoginUserBo implements UserDetails {
     /**
      * 登陆用户ID
      */
-    private String id;
+    private Long id;
     /**
      * 登陆用户名
      */

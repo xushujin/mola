@@ -5,7 +5,6 @@ import com.mola.authx.enyity.UserInfo;
 import com.mola.authx.pojo.bo.LoginUserBo;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.Mappings;
 import org.mapstruct.factory.Mappers;
 
 /**
@@ -24,8 +23,6 @@ public interface LoginUserBoMapper {
      * @param userInfo
      * @return
      */
-    @Mappings({
-            @Mapping(source = "loginUser.id", target = "id")
-    })
+//    @Mapping(source = "loginUser.id", target = "id")
     LoginUserBo loginUserBo(LoginUser loginUser, UserInfo userInfo);
 }

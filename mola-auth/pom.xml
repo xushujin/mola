@@ -61,6 +61,12 @@
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-boot-starter</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>mapstruct</artifactId>
+                    <groupId>org.mapstruct</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <!-- springfox end -->
         <!-- aop start -->
