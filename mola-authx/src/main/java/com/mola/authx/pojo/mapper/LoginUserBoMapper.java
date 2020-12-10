@@ -23,6 +23,6 @@ public interface LoginUserBoMapper {
      * @param userInfo
      * @return
      */
-//    @Mapping(source = "loginUser.id", target = "id")
+    @Mapping(source = "loginUser.id", target = "id")
     LoginUserBo loginUserBo(LoginUser loginUser, UserInfo userInfo);
 }
