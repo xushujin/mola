@@ -46,3 +46,14 @@ http://127.0.0.1:8100/actuator
 
 #### 待办
 * Spring WebFlux
+
+
+### OPS
+Yapi + Swagger
+
+### Yapi安装
+```
+# 用yapi-cli安装
+npm install -g yapi-cli --registry https://registry.npm.taobao.org
+yapi server
+```
