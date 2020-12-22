@@ -31,6 +31,7 @@
         <kaptcha.version>2.3.2</kaptcha.version>
         <sharding-jdbc.version>4.1.1</sharding-jdbc.version>
         <clickhouse-jdbc.version>0.2.4</clickhouse-jdbc.version>
+        <graalvm.version>0.8.3</graalvm.version>
         <!-- mapstruct、lombok 需要搭配版本食用，不然会因为编译顺序问题导致无法编译通过 -->
         <mapstruct.version>1.3.1.Final</mapstruct.version>
         <lombok.version>1.18.12</lombok.version>
@@ -172,6 +173,13 @@
                 <version>${clickhouse-jdbc.version}</version>
             </dependency>
             <!-- clickhouse-jdbc end -->
+            <!-- graalvm start -->
+            <dependency>
+                <groupId>org.springframework.experimental</groupId>
+                <artifactId>spring-graalvm-native</artifactId>
+                <version>${graalvm.version}</version>
+            </dependency>
+            <!-- graalvm end -->
         </dependencies>
     </dependencyManagement>
 

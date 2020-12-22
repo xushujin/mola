@@ -11,7 +11,7 @@ import tk.mybatis.spring.annotation.MapperScan;
  * @author hatim
  */
 @MapperScan("com.mola.auth.dao")
-@SpringBootApplication(exclude = {DruidDataSourceAutoConfigure.class})
+@SpringBootApplication(exclude = {DruidDataSourceAutoConfigure.class}, proxyBeanMethods = false)
 public class AuthApplication {
 
     public static void main(String[] args) {

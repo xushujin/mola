@@ -138,6 +138,16 @@
             <artifactId>okhttp</artifactId>
         </dependency>
         <!-- okhttp3 end -->
+        <!-- graalvm start -->
+        <dependency>
+            <groupId>org.springframework.experimental</groupId>
+            <artifactId>spring-graalvm-native</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-indexer</artifactId>
+        </dependency>
+        <!-- graalvm end -->
     </dependencies>
 
     <build>
