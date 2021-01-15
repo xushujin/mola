@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.mola</groupId>
-    <artifactId>ops</artifactId>
+    <artifactId>rush</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>mola-ops</name>
-    <description>mola-ops project for Spring Boot</description>
+    <name>mola-rush</name>
+    <description>mola-rush project for Spring Boot</description>
 
     <dependencies>
         <dependency>
@@ -26,7 +26,7 @@
     </dependencies>
 
     <build>
-        <finalName>mola-ops</finalName>
+        <finalName>mola-rush</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

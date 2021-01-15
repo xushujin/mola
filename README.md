@@ -55,6 +55,7 @@
 * mola-file 文件管理
 * mola-ds 多数据源
 * mola-media 流媒体
+* mola-rush 抢购
 * mola-ops 运维相关
 * mola-generator 各种生成器（代码生成器、二维码生成器等等）
 * mola-book 技术文档
