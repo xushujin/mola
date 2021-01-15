@@ -14,10 +14,6 @@
     <name>mola-authx</name>
     <description>mola-authx project for Spring Boot</description>
 
-    <properties>
-        <java.version>1.8</java.version>
-    </properties>
-
     <dependencies>
         <!-- webflux start -->
         <dependency>
